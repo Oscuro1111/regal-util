@@ -9,7 +9,7 @@ var logger = require('morgan');
 var events = require('events');
 var expressValidator = require('express-validator');
 var indexRouter = require('./routes/index');
-var temp = require('./test/temp');
+//var temp = require('./test/temp');
 
 var shareAble = {};
 
@@ -56,7 +56,7 @@ app.use((req, res, next) => {
 	res.append('Access-Control-Allow-Credentials', true);
 	next();
 });
-app.use('/work', temp(express, __dirname + '/public', fs));
+//app.use('/work', temp(express, __dirname + '/public', fs));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter(__dirname + '/public'));
 app.use(postCreator(__dirname + '/public', express, fs, shareAble));
@@ -73,15 +73,14 @@ module.exports = {
 
 		app.use(signingUp(express, __dirname + '/views', fs, expressValidator, models));
 
-
 		//app.use(getPost(express,shareAble,__dirname,models));
 		//app.use(posts(__dirname,express,models));
 		// app.use(putPost(__dirname ,express,ejs,models,fs));
 
 		//app.use(deletePost(express , models));
-	   app.use(upload(express,fs,__dirname,models));
-		 app.use(require("./routes/regalfiles/fileDownload")(express,fs,__dirname,models));
-		 app.use(require("./routes/regalfiles/sendFile")(express,fs,__dirname,models));
+		app.use(upload(express, fs, __dirname, models));
+		app.use(require('./routes/regalfiles/fileDownload')(express, fs, __dirname, models));
+		app.use(require('./routes/regalfiles/sendFile')(express, fs, __dirname, models));
 
 		// error handler
 
