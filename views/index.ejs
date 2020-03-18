@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+		<link rel="stylesheet" href="/css/mystyle.css">
+		<link rel="stylesheet" href="/css/w3.css">
+	</head>
+
+	<body>
+		
+		<div id="main-container">
+			<%if(errors.length!=0){%>
+			<h2 style="background-color: red;color:#ffff;">Login Failed!</h2>
+			<%errors.forEach(function(element){%>
+			<li><%=element.param%>:<%=element.msg%></li>
+			<%})%> <%}else{%>
+			<%-data-%> 
+		<%}%>
+		<a href="/">Try again!</a>
+		</div>
+		
+		<script type="text/javascript" src="/libs/jquery.js"></script>
+		<script type="text/javascript" src="/libs/popper.js"></script>
+		<script type="text/javascript" src="/libs/bootstrap.min.js"></script>
+	</body>
+</html>
