@@ -8,7 +8,6 @@ module.exports = function(express, fs, dir, db) {
 			validate,
 			function(req, res, next) {
 				var dataRecord = [];
-				console.log("request=",req.url);
 
 				var location = req.params.location;
 				var type = req.params.type;

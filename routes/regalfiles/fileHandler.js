@@ -17,7 +17,6 @@ module.exports = function(express, fs, dir, db) {
 						
 						var file = new Files();
 						let d = new Date();
-										console.log(records);
 										file.name = records.name;
 										file.location= location;
 										file.workType = type;
