@@ -8,7 +8,6 @@ module.exports = function(express, fs, dir, db) {
 				var location = req.params.location;
 				var type = req.params.type;
 				var { Files, User } = db;
-				console.log("ok");
 				User.findOne({ _id: req.session.acc[0].id }).exec((err, user) => {
 					if (err) {
 						res.end('Internal server error!');
@@ -24,14 +23,11 @@ module.exports = function(express, fs, dir, db) {
 										file.workType = type;
 										file.bufferData=records.data;
 										file.date= d.getDay()+"/"+d.getMonth()+"/"+d.getFullYear();
-										file.save((f,e)=>{console.log(f,e)});
-										console.log(file);
+										file.save();
 										user.fileRecordType[location][type].push(file._id);
 										user.save();
 
 										res.status(200).end();
-							
-						 
 					}
 				});
 			},

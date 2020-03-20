@@ -16,7 +16,6 @@ module.exports = function(express, fs, dir, db) {
 
 				User.findOne({ _id: req.session.acc[0].id }).exec((err, user) => {
 					if (err) {
-						console.log("err->", err);
 						res.status(500).end('Internal server error!');
 
 						return;
@@ -28,7 +27,6 @@ module.exports = function(express, fs, dir, db) {
 							Files.findOne({ _id: user.fileRecordType[location][type][i] }).exec((err, file) => {
 								if (err) {
 
-									console.log("err--->",err);
 									res.status(500).end('Internal server error!');
 
 									return;
@@ -51,7 +49,6 @@ module.exports = function(express, fs, dir, db) {
 				
 				
 				}catch(e){
-					console.log("request=",req.url);
 					res.status(200).json({ data: [{ date: 'EMPTY', workType: 'EMPTY', name: 'EMPTY' }] });
 					
 					return;
