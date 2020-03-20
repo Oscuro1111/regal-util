@@ -5,11 +5,11 @@ module.exports = (async function() {
 	var mongoose = require('mongoose');
 	console.log('MoongoDB');
 
- //var dbserver =await mongoose.connect("mongodb+srv://Oscuro:Computerislife;@cluster0-guxyc.mongodb.net/test2?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
-	var dbserver = await mongoose.connect('mongodb://localhost/Demo3', {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	});
+    var dbserver =await mongoose.connect("mongodb+srv://Oscuro:Computerislife;@cluster0-guxyc.mongodb.net/test2?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
+	//var dbserver = await mongoose.connect('mongodb://localhost/Demo3', {
+	//	useNewUrlParser: true,
+	//	useUnifiedTopology: true,
+	//});
 	var User = mongoose.Schema({
 		userName: {
 			type: String,
