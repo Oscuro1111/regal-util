@@ -20,7 +20,8 @@ module.exports = function(express, fs, dir, Models) {
 
 				Files.findOne({ _id: req.params.id, workType: type, location: location }).exec((err, file) => {
 					let path = dir + '/public/data/temp'+'/' + file.name;
-					fs.writeFile(path, file.bufferData.buffer, err => {
+					console.log(file.bufferData.buffer);
+					fs.writeFile(path, file.bufferData, err => {
 						if (err) res.status(500).send('Internal server error during file transfer!');
 						else {
 							var data = fs.readFileSync(path);
