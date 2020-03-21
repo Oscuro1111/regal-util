@@ -1,7 +1,10 @@
+
 module.exports = function(express, fs, dir, Models) {
+
+   const mime = require('mime-types');
 	return (exp => {
 		var router = exp.Router();
-
+		var { mongodb, db_, objectID } = Models;
 		var path = require('path');
 
 		router.get('/download/:location/:type/:id/:fileName', [
@@ -18,10 +21,31 @@ module.exports = function(express, fs, dir, Models) {
 					return;
 				}
 
+				let bucket = new mongodb.GridFSBucket(db_.db, {
+					bucketName: location + '/' + type,
+				});
+
+				let downloadStream = bucket.openDownloadStream(new objectID(req.params.id));
+
+				downloadStream.on('error',()=>{
+					res.status(404).send('No  file found!');
+				});
+ var data_=[];
+
+				downloadStream.on('data',(chunk)=>{
+					data_.push(chunk);    
+				});
+
+				downloadStream.on('end',()=>{
+					res.set('Content-Type',mime.lookup(fileName));
+					res.status(200).send(Buffer.concat(data_));
+					res.status(200).end();
+				});
+
+				/*
 				Files.findOne({ _id: req.params.id, workType: type, location: location }).exec((err, file) => {
 					let path = dir + '/public/data/temp'+'/' + file.name;
-					console.log(file.bufferData.buffer);
-					fs.writeFile(path, file.bufferData, err => {
+					fs.writeFile(path, file.bufferData.buffer, err => {
 						if (err) res.status(500).send('Internal server error during file transfer!');
 						else {
 							var data = fs.readFileSync(path);
@@ -32,6 +56,8 @@ module.exports = function(express, fs, dir, Models) {
 						}
 					});
 				});
+
+				*/
 			},
 		]);
 		return router;

@@ -1,12 +1,14 @@
 //Following module pattern
+ 
 
 module.exports = (async function() {
 	var crypto = require('crypto');
 	var mongoose = require('mongoose');
-	console.log('MoongoDB');
+	var objectID = require('mongodb').ObjectID;
+	var mongodb = require('mongodb');
 
-    var dbserver =await mongoose.connect("mongodb+srv://Oscuro:Computerislife;@cluster0-guxyc.mongodb.net/test2?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
-	//var dbserver = await mongoose.connect('mongodb://localhost/Demo3', {
+    var dbserver =await mongoose.connect("mongodb+srv://Oscuro:Computerislife;@cluster0-guxyc.mongodb.net/regal-util-files?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
+	//var dbserver = await mongoose.connect('mongodb://localhost/Demo4', {
 	//	useNewUrlParser: true,
 	//	useUnifiedTopology: true,
 	//});
@@ -77,7 +79,7 @@ module.exports = (async function() {
 	var Files = mongoose.Schema({
 		name: String,
 		location: String,
-		bufferData:mongoose.Schema.Types.Buffer,
+		fileObjectID:mongoose.Schema.Types.ObjectId,
         workType:String,
 		date: {
 			type: String,
@@ -90,7 +92,9 @@ module.exports = (async function() {
 			AuthInfo: mongoose.model('authInfo', authInfo, 'authInfo'),
 			Files: mongoose.model('files', Files, 'files'),
 			db_: mongoose.connection,
-			mongoose:mongoose
+			mongoose:mongoose,
+			mongodb:mongodb,
+			objectID :objectID
 		},
 	};
 })();
